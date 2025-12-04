@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Tutor_hire_system.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Tutor_hire_systemContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Tutor_hire_systemContext") ?? throw new InvalidOperationException("Connection string 'Tutor_hire_systemContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
