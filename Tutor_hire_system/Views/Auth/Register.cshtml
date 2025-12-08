@@ -1,4 +1,4 @@
-﻿@model Tutor_hire_system.Models.User
+﻿@model Tutor_hire_system.ViewModels.RegisterViewModel
 
 @{
     ViewData["Title"] = "Register";
@@ -12,39 +12,71 @@
 
         <div class="row mb-3">
             <div class="col">
-                <label asp-for="FirstName" class="form-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <label asp-for="User.FirstName" class="form-label"></label>
+                <input asp-for="User.FirstName" class="form-control" />
+                <span asp-validation-for="User.FirstName" class="text-danger"></span>
             </div>
             <div class="col">
-                <label asp-for="Surname" class="form-label"></label>
-                <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger"></span>
+                <label asp-for="User.Surname" class="form-label"></label>
+                <input asp-for="User.Surname" class="form-control" />
+                <span asp-validation-for="User.Surname" class="text-danger"></span>
             </div>
         </div>
 
         <div class="mb-3">
-            <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+            <label asp-for="User.Email" class="form-label"></label>
+            <input asp-for="User.Email" class="form-control" />
+            <span asp-validation-for="User.Email" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-                <label asp-for="PhoneNumber" class="form-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
+            <label asp-for="User.PhoneNumber" class="form-label"></label>
+            <input asp-for="User.PhoneNumber" class="form-control" />
+            <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+        </div>
 
         <div class="mb-3">
-            <label for="Password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" required />
+            <label asp-for="User.Password" class="form-label">Password</label>
+            <input asp-for="User.Password" type="password" class="form-control" />
+            <span asp-validation-for="User.Password" class="text-danger"></span>
         </div>
-            
-            <div class="mb-3">
-                <label asp-for="RoleId" class="control-label"></label>
-                <select asp-for="RoleId" class="form-control" asp-items="ViewBag.RoleName"></select>
-            </div>
-        
+
+        <div class="mb-3">
+            <label asp-for="User.RoleId" class="control-label"></label>
+            <select asp-for="User.RoleId" class="form-control" asp-items="ViewBag.Roles">
+                <option value="">-- Select Role --</option>
+            </select>
+            <span asp-validation-for="User.RoleId" class="text-danger"></span>
+        </div>
+
+        <!-- Optional Student fields -->
+        <div class="mb-3">
+            <h6>Student details (if registering as Student)</h6>
+            <label asp-for="Student.StudentNumber" class="form-label"></label>
+            <input asp-for="Student.StudentNumber" class="form-control" />
+            <span asp-validation-for="Student.StudentNumber" class="text-danger"></span>
+
+            <label asp-for="Student.Campus" class="form-label mt-2"></label>
+            <input asp-for="Student.Campus" class="form-control" />
+            <span asp-validation-for="Student.Campus" class="text-danger"></span>
+        </div>
+
+        <!-- Optional Tutor fields -->
+        <div class="mb-3">
+            <h6>Tutor details (if registering as Tutor)</h6>
+            <label asp-for="Tutor.Qualification" class="form-label"></label>
+            <input asp-for="Tutor.Qualification" class="form-control" />
+            <span asp-validation-for="Tutor.Qualification" class="text-danger"></span>
+
+            <label asp-for="Tutor.Subject" class="form-label mt-2"></label>
+            <input asp-for="Tutor.Subject" class="form-control" />
+            <span asp-validation-for="Tutor.Subject" class="text-danger"></span>
+
+            <label asp-for="Tutor.Location" class="form-label mt-2"></label>
+            <input asp-for="Tutor.Location" class="form-control" />
+            <span asp-validation-for="Tutor.Location" class="text-danger"></span>
+        </div>
+
         <button type="submit" class="btn btn-primary w-100">Register</button>
 
         <div class="mt-3 text-center">
