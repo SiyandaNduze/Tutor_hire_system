@@ -11,6 +11,8 @@ namespace Tutor_hire_system.Models
         [Display(Name = "Date Accepted")]
         public DateTime DateAccepted { get; set; } = DateTime.UtcNow;
 
+        public string? Status { get; set; }
+
         [ForeignKey("Post")]
         public int PostId { get; set; }
         public Post? Post { get; set; }

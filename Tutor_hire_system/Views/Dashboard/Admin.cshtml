@@ -1,0 +1,47 @@
+﻿@model Tutor_hire_system.ViewModels.AdminDashboardVM
+
+<div class="container mt-5">
+    <h2 class="mb-4">Admin Dashboard</h2>
+
+    <div class="row text-center">
+
+        <div class="col">
+            <h4>Total Users</h4>
+            <p class="display-6">@Model.TotalUsers</p>
+        </div>
+
+        <div class="col">
+            <h4>Students</h4>
+            <p class="display-6">@Model.TotalStudents</p>
+        </div>
+
+        <div class="col">
+            <h4>Tutors</h4>
+            <p class="display-6">@Model.TotalTutors</p>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row text-center mt-4">
+        <div class="col">
+            <h4>Total Posts</h4>
+            <p class="display-6">@Model.TotalPosts</p>
+        </div>
+
+        <div class="col">
+            <h4>Jobs Accepted</h4>
+            <p class="display-6 text-info">@Model.JobsAccepted</p>
+        </div>
+
+        <div class="col">
+            <h4>Jobs Completed</h4>
+            <p class="display-6 text-success">@Model.JobsCompleted</p>
+        </div>
+
+        <div class="col">
+            <h4>Jobs Dropped</h4>
+            <p class="display-6 text-danger">@Model.JobsDropped</p>
+        </div>
+    </div>
+</div>

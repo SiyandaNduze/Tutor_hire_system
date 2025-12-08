@@ -1,0 +1,42 @@
+﻿@model Tutor_hire_system.ViewModels.TutorDashboardVM
+
+<div class="container mt-5">
+    <h2 class="mb-4">Tutor Dashboard</h2>
+
+    <div class="row text-center">
+        <div class="col">
+            <h4>Jobs Taken</h4>
+            <p class="display-6">@Model.JobsTaken</p>
+        </div>
+        <div class="col">
+            <h4>Completed</h4>
+            <p class="display-6 text-success">@Model.JobsCompleted</p>
+        </div>
+        <div class="col">
+            <h4>Pending</h4>
+            <p class="display-6 text-warning">@Model.JobsPending</p>
+        </div>
+    </div>
+
+    <hr />
+
+    <h4>Recent Jobs</h4>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var job in Model.RecentJobs)
+            {
+                <tr>
+                    <td>@job.Status</td>
+                    <td>@job.DateAccepted</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,23 @@
+﻿@model Tutor_hire_system.ViewModels.StudentDashboardVM
+
+<div class="container mt-5">
+    <h2 class="mb-3">Student Dashboard</h2>
+
+    <div class="mb-4">
+        <h4>Your Posts: @Model.TotalMyPosts</h4>
+        <a class="btn btn-primary" asp-controller="Post" asp-action="Create">Create New Post</a>
+    </div>
+
+    <hr />
+
+    <h4>Posts From Other Students</h4>
+    <ul class="list-group mt-3">
+        @foreach (var post in Model.OtherStudentsPosts)
+        {
+            <li class="list-group-item">
+                <h5>@post.Content</h5>
+                <small class="text-muted">@post.DateCreated</small>
+            </li>
+        }
+    </ul>
+</div>

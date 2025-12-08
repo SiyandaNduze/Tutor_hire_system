@@ -60,10 +60,10 @@ namespace Tutor_hire_system.Controllers
             // Redirect based on role
             return user.Role?.RoleName switch
             {
-                "Admin" => RedirectToAction("", ""),
-                "Student" => RedirectToAction("", ""),
-                "Tutor" => RedirectToAction("",""),
-                _ => RedirectToAction("Index","Home")
+                "Admin" => RedirectToAction("Admin", "Dashboard"),
+                "Student" => RedirectToAction("Student", "Dashboard"),
+                "Tutor" => RedirectToAction("Tutor", "Dashboard"),
+                _ => RedirectToAction("Index", "Home")
             };
         }
 
@@ -138,8 +138,8 @@ namespace Tutor_hire_system.Controllers
             // Redirect based on role
             return roleName switch
             {
-                "Student" => RedirectToAction("", ""),
-                "Tutor" => RedirectToAction("", ""),
+                "Student" => RedirectToAction("Student", "Dashboard"),
+                "Tutor" => RedirectToAction("Tutor+", "Dashboard"),
                 _ => RedirectToAction("Index", "Home")
             };
         }
