@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Tutor_hire_system.Data;
+using Tutor_hire_system.Models;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Tutor_hire_systemContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Tutor_hire_systemContext") ?? throw new InvalidOperationException("Connection string 'Tutor_hire_systemContext' not found.")));
@@ -8,7 +9,21 @@ builder.Services.AddDbContext<Tutor_hire_systemContext>(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add session support
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -19,6 +34,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
