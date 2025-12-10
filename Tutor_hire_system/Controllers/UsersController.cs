@@ -48,7 +48,7 @@ namespace Tutor_hire_system.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "Description");
+            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "RoleName");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace Tutor_hire_system.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "Description", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -82,7 +82,7 @@ namespace Tutor_hire_system.Controllers
             {
                 return NotFound();
             }
-            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "Description", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "RoleName", user.RoleId);
             return View(user);
         }
 
@@ -118,7 +118,7 @@ namespace Tutor_hire_system.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "Description", user.RoleId);
+            ViewData["RoleId"] = new SelectList(_context.Set<Role>(), "RoleId", "RoleName", user.RoleId);
             return View(user);
         }
 

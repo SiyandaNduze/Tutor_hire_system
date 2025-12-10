@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Tutor_hire_system.Models.User>
 
 @{
+    Layout = "_AdminLayout";
     ViewData["Title"] = "Index";
 }
 
@@ -52,7 +53,7 @@
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Role.Description)
+                @Html.DisplayFor(modelItem => item.Role.RoleName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
