@@ -160,5 +160,30 @@ namespace Tutor_hire_system.Controllers
         {
             return _context.Student.Any(e => e.StudentId == id);
         }
+
+        public async Task<IActionResult> Fyp()
+        {
+            var st = await _context.Post
+                .Where(s => s.IsAccepted == "Pending")
+                .Select(s => s.PostId)
+                .ToListAsync();
+
+            var fyp = await _context.Post
+                .Include(p => p.Student)
+                .Where(p => !st.Contains(p.PostId))
+                .OrderByDescending(p => p.DateCreated)
+                .ToListAsync();
+
+            return View(fyp);
+        }
+
+        public async Task<IActionResult> Tutors()
+        {
+            var tutors = await _context.Tutor
+                .Include(t => t.User)
+                .ToListAsync();
+
+            return View(tutors);
+        }
     }
 }

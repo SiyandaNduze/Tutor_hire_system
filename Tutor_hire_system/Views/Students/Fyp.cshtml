@@ -1,0 +1,35 @@
+﻿@model List<Tutor_hire_system.Models.Post>
+
+@{
+    Layout = "_StudentLayout";
+    ViewData["Title"] = "Fyp";
+}
+
+<div class="container mt-5">
+    <h2>Fyp</h2>
+    <a asp-controller="Students" asp-action="Tutors" class="icon text-danger>
+        <i class="bi bi-person"></i> View tutor list
+</a>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Date</th>
+                <th>Student</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.Content</td>
+                    <td>@post.DateCreated</td>
+                    <td>@post.Student?.StudentNumber</td>
+                    <td>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
