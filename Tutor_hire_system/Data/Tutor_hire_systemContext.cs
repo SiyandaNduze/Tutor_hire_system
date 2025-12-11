@@ -20,6 +20,8 @@ namespace Tutor_hire_system.Data
         public DbSet<Tutor_hire_system.Models.Post> Post { get; set; } = default!;
         public DbSet<Tutor_hire_system.Models.Job> Job { get; set; } = default!;
         public DbSet<Tutor_hire_system.Models.Role> Role { get; set; } = default!;
+        public DbSet<Tutor_hire_system.Models.Notification> Notification { get; set; } = default!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

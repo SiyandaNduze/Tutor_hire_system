@@ -1,0 +1,52 @@
+﻿@model List<Tutor_hire_system.Models.Notification>
+
+@{
+    Layout = "_StudentLayout";
+    ViewData["Title"] = "Notifications";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Notifications</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No notifications yet.</div>
+    }
+    else
+    {
+        <ul class="list-group">
+
+            @foreach (var n in Model)
+            {
+                <li class="list-group-item shadow-sm mb-2 @(n.IsRead ? "" : "list-group-item-info")">
+
+                    <div class="d-flex justify-content-between align-items-start">
+
+                        <div>
+                            <h5 class="fw-bold">@n.Status</h5>
+                            <p class="mb-1">@n.Message</p>
+
+                            <div class="text-muted small">
+                                <strong>Tutor:</strong> @n.TutorName <br />
+                                <strong>Related Post:</strong> @n.PostContent <br />
+                                <em>@n.CreatedAt</em>
+                            </div>
+                        </div>
+
+                        <div>
+                            @if (!n.IsRead)
+                            {
+                                <a asp-action="MarkAsRead"
+                                   asp-route-id="@n.NotificationId"
+                                   class="btn btn-sm btn-primary">
+                                    Mark as Read
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                </li>
+            }
+        </ul>
+    }
+</div>

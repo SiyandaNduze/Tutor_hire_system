@@ -35,11 +35,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var job in Model.RecentJobs)
+            @foreach (var job in Model.RecentJobs ?? Enumerable.Empty<Job>())
             {
                 <tr>
-                    <td>@job.Status</td>
-                    <td>@job.DateAccepted</td>
+                    <td>@(job.Post?.Content ?? "[no content]")</td>
+                    <td>@(job.Status ?? "[unknown]")</td>
+                    <td>@job.DateAccepted.ToString("g")</td>
                 </tr>
             }
         </tbody>

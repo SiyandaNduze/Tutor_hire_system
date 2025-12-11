@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tutor_hire_system.Data;
 
@@ -11,9 +12,11 @@ using Tutor_hire_system.Data;
 namespace Tutor_hire_system.Migrations
 {
     [DbContext(typeof(Tutor_hire_systemContext))]
-    partial class Tutor_hire_systemContextModelSnapshot : ModelSnapshot
+    [Migration("20251211161534_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,15 +70,6 @@ namespace Tutor_hire_system.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostContent")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TutorName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")

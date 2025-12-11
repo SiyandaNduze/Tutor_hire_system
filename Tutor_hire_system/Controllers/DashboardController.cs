@@ -28,6 +28,7 @@ namespace Tutor_hire_system.Controllers
             if (tutor == null) return Unauthorized(); // user not a tutor
 
             var jobs = await _context.Job
+                .Include(j => j.Post)
                 .Where(j => j.TutorId == tutor.TutorId)
                 .ToListAsync();
 

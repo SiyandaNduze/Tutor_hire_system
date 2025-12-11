@@ -13,7 +13,7 @@ namespace Tutor_hire_system.Models
         [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         [Display(Name = "Is Accepted")]
-        public string? IsAccepted { get; set; }
+        public string? IsAccepted { get; set; } = "Pending";
 
         [ForeignKey("Student")]
         public int StudentId { get; set; }

@@ -1,48 +1,30 @@
 ﻿@model IEnumerable<Tutor_hire_system.Models.Post>
 
 @{
+    Layout = "_StudentLayout";
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container mt-5">
+    <h2>Your Posts</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAccepted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Student)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsAccepted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student.StudentNumber)
-            </td>
-            <td>
+    <a class="btn btn-primary mb-3" asp-action="Create">Create New Post</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Content</td>
+                    <td>@item.DateCreated</td>
+                    <td>
                 <a asp-action="Edit" asp-route-id="@item.PostId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.PostId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.PostId">Delete</a>
@@ -51,3 +33,4 @@
 }
     </tbody>
 </table>
+</div>

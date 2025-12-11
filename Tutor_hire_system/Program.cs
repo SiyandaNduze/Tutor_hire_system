@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Tutor_hire_system.Data;
 using Tutor_hire_system.Models;
+using Tutor_hire_system.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Tutor_hire_systemContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Tutor_hire_systemContext") ?? throw new InvalidOperationException("Connection string 'Tutor_hire_systemContext' not found.")));
@@ -16,6 +17,9 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// Register NotificationService
+builder.Services.AddScoped<NotificationService>();
 
 var app = builder.Build();
 

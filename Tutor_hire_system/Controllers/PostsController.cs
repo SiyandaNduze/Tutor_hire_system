@@ -36,11 +36,8 @@ namespace Tutor_hire_system.Controllers
 
             var post = await _context.Post
                 .Include(p => p.Student)
-                .FirstOrDefaultAsync(m => m.PostId == id);
-            if (post == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(p => p.PostId == id);
+            if (post == null) return NotFound();
 
             return View(post);
         }
@@ -59,8 +56,18 @@ namespace Tutor_hire_system.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PostId,Content,DateCreated,IsAccepted,StudentId")] Post post)
         {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login", "Auth");
+
+            var student = await _context.Student.FirstOrDefaultAsync(s => s.UserId == userId);
+            if (student == null)
+                return Unauthorized();
+
             if (ModelState.IsValid)
             {
+                post.DateCreated = DateTime.Now;
+                post.StudentId = student.StudentId;
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

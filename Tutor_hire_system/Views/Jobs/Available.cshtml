@@ -1,0 +1,34 @@
+﻿@model List<Tutor_hire_system.Models.Post>
+
+@{
+    Layout = "_TutorLayout";
+    ViewData["Title"] = "Available";
+}
+
+<div class="container mt-5">
+    <h2>Available Posts</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Date</th>
+                <th>Student</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.Content</td>
+                    <td>@post.DateCreated</td>
+                    <td>@post.Student?.StudentNumber</td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Accept" asp-route-postId="@post.PostId">Accept</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

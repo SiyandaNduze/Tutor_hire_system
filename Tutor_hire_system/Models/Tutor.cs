@@ -17,5 +17,7 @@ namespace Tutor_hire_system.Models
         public User? User { get; set; }
 
         public ICollection<Job>? Jobs { get; set; }
+        [NotMapped]
+        public string FullName => $"{User?.FirstName} {User?.Surname}";
     }
 }

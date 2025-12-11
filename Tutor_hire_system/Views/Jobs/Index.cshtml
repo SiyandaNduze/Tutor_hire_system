@@ -1,41 +1,38 @@
 ﻿@model IEnumerable<Tutor_hire_system.Models.Job>
 
 @{
+    Layout = "_TutorLayout";
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container mt-5">
+    <h2>My Jobs</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAccepted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Post)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tutor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAccepted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Post.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tutor.TutorId)
-            </td>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Student</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Post.Content</td>
+                    <td>@item.Status</td>
+                    <td>@item.DateAccepted</td>
+                    <td>@item.Post.Student.StudentNumber</td>
+                    <td>
+                        @if (item.Status == "Accepted")
+                        {
+                            <a class="btn btn-success" asp-action="Complete" asp-route-id="@item.JobId">Complete</a>
+                            <a class="btn btn-warning" asp-action="Drop" asp-route-id="@item.JobId">Drop</a>
+                        }
+                    </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.JobId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.JobId">Details</a> |
@@ -45,3 +42,4 @@
 }
     </tbody>
 </table>
+</div>
