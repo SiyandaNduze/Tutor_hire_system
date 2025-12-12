@@ -163,16 +163,12 @@ namespace Tutor_hire_system.Controllers
 
         public async Task<IActionResult> Fyp()
         {
-            var st = await _context.Post
-                .Where(s => s.IsAccepted == "Pending")
-                .Select(s => s.PostId)
-                .ToListAsync();
-
             var fyp = await _context.Post
-                .Include(p => p.Student)
-                .Where(p => !st.Contains(p.PostId))
-                .OrderByDescending(p => p.DateCreated)
-                .ToListAsync();
+        .Include(p => p.Student)
+        .ThenInclude(s => s.User)
+        .Where(p => p.IsAccepted == "Pending")
+        .OrderByDescending(p => p.DateCreated)
+        .ToListAsync();
 
             return View(fyp);
         }
