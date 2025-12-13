@@ -1,0 +1,30 @@
+﻿@model List<Tutor_hire_system.Models.Job>
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Jobs</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Post</th>
+            <th>Student</th>
+            <th>Tutor</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var j in Model)
+        {
+            <tr>
+                <td>@j.Post?.Content</td>
+                <td>@j.Post?.Student?.User?.FirstName</td>
+                <td>@j.Tutor?.User?.FirstName</td>
+                <td>@j.Status</td>
+                <td>@j.DateAccepted</td>
+            </tr>
+        }
+    </tbody>
+</table>

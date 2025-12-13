@@ -205,8 +205,14 @@ namespace Tutor_hire_system.Controllers
                 .ThenInclude(s => s.User)
                 .FirstOrDefaultAsync(p => p.PostId == postId);
 
+            if (post.IsAccepted != "Pending")
+                return BadRequest("Post already accepted.");
+
             if (post == null || post.Student == null)
                 return BadRequest();
+
+            // ✅ UPDATE POST STATUS
+            post.IsAccepted = "Accepted";
 
             var job = new Job
             {
@@ -219,7 +225,6 @@ namespace Tutor_hire_system.Controllers
             _context.Job.Add(job);
             await _context.SaveChangesAsync();
 
-            // SEND STUDENT NOTIFICATION
             await _notify.SendNotification(
                 post.Student.UserId,
                 "A tutor accepted your post.",
@@ -230,6 +235,7 @@ namespace Tutor_hire_system.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         // ---------------------------------------------------
         // VIEW MY JOBS
@@ -270,7 +276,10 @@ namespace Tutor_hire_system.Controllers
 
             if (job == null) return NotFound();
 
+            // ✅ UPDATE BOTH
             job.Status = "Completed";
+            job.Post.IsAccepted = "Completed";
+
             await _context.SaveChangesAsync();
 
             await _notify.SendNotification(
@@ -283,7 +292,6 @@ namespace Tutor_hire_system.Controllers
 
             return RedirectToAction("Index");
         }
-
 
         // ---------------------------------------------------
         // DROP A JOB
@@ -300,7 +308,10 @@ namespace Tutor_hire_system.Controllers
 
             if (job == null) return NotFound();
 
+            // ✅ UPDATE BOTH
             job.Status = "Dropped";
+            job.Post.IsAccepted = "Pending"; // Make post available again
+
             await _context.SaveChangesAsync();
 
             await _notify.SendNotification(
@@ -313,5 +324,6 @@ namespace Tutor_hire_system.Controllers
 
             return RedirectToAction("Index");
         }
+
     }
 }

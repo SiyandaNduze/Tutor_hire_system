@@ -1,0 +1,108 @@
+﻿@model Tutor_hire_system.ViewModels.AdminAnalyticsViewModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Admin Analytics";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">
+        <i class="bi bi-speedometer2"></i> Admin Analytics Dashboard
+    </h2>
+
+    <!-- USERS -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <a asp-controller="Analytics" asp-action="Users" class="text-decoration-none">
+                <div class="card text-bg-primary shadow analytics-card">
+                    <div class="card-body text-center">
+                        <h5>Total Users</h5>
+                        <h2>@Model.TotalUsers</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="Analytics" asp-action="Students" class="text-decoration-none">
+                <div class="card text-bg-success shadow analytics-card">
+                    <div class="card-body text-center">
+                        <h5>Students</h5>
+                        <h2>@Model.TotalStudents</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="Analytics" asp-action="Tutors" class="text-decoration-none">
+                <div class="card text-bg-warning shadow analytics-card">
+                    <div class="card-body text-center">
+                        <h5>Tutors</h5>
+                        <h2>@Model.TotalTutors</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- POSTS -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <a asp-controller="Analytics" asp-action="Posts" class="text-decoration-none">
+                <div class="card shadow analytics-card">
+                    <div class="card-body text-center">
+                        <h5>Total Posts</h5>
+                        <h2>@Model.TotalPosts</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6">
+            <a asp-controller="Analytics" asp-action="PendingPosts" class="text-decoration-none">
+                <div class="card shadow border-danger analytics-card">
+                    <div class="card-body text-center text-danger">
+                        <h5>Pending Posts</h5>
+                        <h2>@Model.PendingPosts</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- JOBS -->
+    <div class="row">
+        <div class="col-md-4">
+            <a asp-controller="Analytics" asp-action="JobsAccepted" class="text-decoration-none">
+                <div class="card shadow border-primary analytics-card">
+                    <div class="card-body text-center">
+                        <h5>Jobs Accepted</h5>
+                        <h2>@Model.JobsAccepted</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="Analytics" asp-action="JobsCompleted" class="text-decoration-none">
+                <div class="card shadow border-success analytics-card">
+                    <div class="card-body text-center">
+                        <h5>Jobs Completed</h5>
+                        <h2>@Model.JobsCompleted</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="Analytics" asp-action="JobsDropped" class="text-decoration-none">
+                <div class="card shadow border-danger analytics-card">
+                    <div class="card-body text-center">
+                        <h5>Jobs Dropped</h5>
+                        <h2>@Model.JobsDropped</h2>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

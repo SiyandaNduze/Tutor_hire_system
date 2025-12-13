@@ -1,0 +1,34 @@
+﻿@model List<Tutor_hire_system.Models.Tutor>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Tutors";
+}
+
+<div class="container mt-5">
+    <h2>Tutors</h2>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Expertise</th>
+                <th>Qualification</th>
+                <th>Age</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tutor in Model)
+            {
+                <tr>
+                    <td>@tutor.FullName</td>
+                    <td>@tutor.Subject</td>
+                    <td>@tutor.Qualification</td>
+                    <td>@tutor.Age</td>
+                    <td>@tutor.Location</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

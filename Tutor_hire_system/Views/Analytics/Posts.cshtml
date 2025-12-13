@@ -1,0 +1,28 @@
+﻿@model List<Tutor_hire_system.Models.Post>
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Posts</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Content</th>
+            <th>Student</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Content</td>
+                <td>@p.Student?.User?.FirstName</td>
+                <td>@p.IsAccepted</td>
+                <td>@p.DateCreated</td>
+            </tr>
+        }
+    </tbody>
+</table>

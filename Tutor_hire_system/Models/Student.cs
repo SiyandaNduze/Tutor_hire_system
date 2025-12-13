@@ -19,5 +19,7 @@ namespace Tutor_hire_system.Models
         public User? User { get; set; }
 
         public ICollection<Post>? Posts { get; set; }
+        [NotMapped]
+        public string FullName => $"{User?.FirstName} {User?.Surname}";
     }
 }

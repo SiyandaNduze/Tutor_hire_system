@@ -29,3 +29,13 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.analytics-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+    .analytics-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
+    }

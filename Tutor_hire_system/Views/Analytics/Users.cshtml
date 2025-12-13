@@ -1,0 +1,27 @@
+﻿@model List<Tutor_hire_system.Models.User>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "All Users";
+}
+
+<h2>All Users</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.FirstName @u.Surname</td>
+                <td>@u.Email</td>
+                <td>@u.Role?.RoleName</td>
+            </tr>
+        }
+    </tbody>
+</table>
