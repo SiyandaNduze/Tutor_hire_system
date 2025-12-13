@@ -7,7 +7,7 @@ namespace Tutor_hire_system.Models
     {
         [Key]
         public int TutorId { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public string? Qualification { get; set; }
         public string? Subject { get; set; }
         public string? Location { get; set; }

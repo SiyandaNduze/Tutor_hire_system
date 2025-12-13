@@ -43,15 +43,20 @@
 
         <div class="mb-3">
             <label asp-for="User.RoleId" class="control-label">Role</label>
-            <select asp-for="User.RoleId" class="form-control" asp-items="ViewBag.Roles">
+            <select asp-for="User.RoleId" class="form-control" asp-items="ViewBag.Roles" id="roleSelect">
                 <option value="">-- Select Role --</option>
             </select>
             <span asp-validation-for="User.RoleId" class="text-danger"></span>
         </div>
 
         <!-- Optional Student fields -->
-        <div class="mb-3">
-            <h6>Student details (if registering as Student)</h6>
+        <div id="studentFields" class="mb-3 d-none">
+            <h6>Student details</h6>
+
+            <label asp-for="Student.Age" class="control-label"></label>
+            <input asp-for="Student.Age" class="form-control" />
+            <span asp-validation-for="Student.Age" class="text-danger"></span>
+
             <label asp-for="Student.StudentNumber" class="form-label"></label>
             <input asp-for="Student.StudentNumber" class="form-control" />
             <span asp-validation-for="Student.StudentNumber" class="text-danger"></span>
@@ -62,8 +67,13 @@
         </div>
 
         <!-- Optional Tutor fields -->
-        <div class="mb-3">
-            <h6>Tutor details (if registering as Tutor)</h6>
+        <div id="tutorFields" class="mb-3 d-none">
+            <h6>Tutor details</h6>
+
+            <label asp-for="Tutor.Age" class="control-label"></label>
+            <input asp-for="Tutor.Age" class="form-control" />
+            <span asp-validation-for="Tutor.Age" class="text-danger"></span>
+
             <label asp-for="Tutor.Qualification" class="form-label"></label>
             <input asp-for="Tutor.Qualification" class="form-control" />
             <span asp-validation-for="Tutor.Qualification" class="text-danger"></span>
@@ -84,7 +94,34 @@
         </div>
     </form>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const roleSelect = document.getElementById("roleSelect");
+        const studentFields = document.getElementById("studentFields");
+        const tutorFields = document.getElementById("tutorFields");
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+        function toggleFields() {
+            studentFields.classList.add("d-none");
+            tutorFields.classList.add("d-none");
+
+            if (!roleSelect.value) return;
+
+            const selectedRole =
+                roleSelect.options[roleSelect.selectedIndex].text;
+
+            if (selectedRole === "Student") {
+                studentFields.classList.remove("d-none");
+            }
+            else if (selectedRole === "Tutor") {
+                tutorFields.classList.remove("d-none");
+            }
+        }
+
+        roleSelect.addEventListener("change", toggleFields);
+
+        // 🔁 re-run on postback
+        toggleFields();
+    });
+</script>
+
+

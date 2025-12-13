@@ -8,10 +8,9 @@ namespace Tutor_hire_system.Models
     {
         [Key]
         public int StudentId { get; set; }
-        [Required]
         [Display(Name = "Student Number")]
         public string? StudentNumber { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public string? Campus { get; set; }
 
         [ForeignKey("User")]

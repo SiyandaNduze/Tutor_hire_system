@@ -21,14 +21,14 @@ namespace Tutor_hire_system.Controllers
 
         // GET: Auth
         [HttpGet]
-        public ActionResult Login()
+        public IActionResult Login()
         {
             return View();
         }
 
         // ===== LOGIN =====
         [HttpPost]
-        public async Task<ActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(string email, string password)
         {
             // Validate input
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
@@ -74,72 +74,92 @@ namespace Tutor_hire_system.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        
-        public ActionResult Register()
+
+        public IActionResult Register()
         {
-            ViewBag.Roles = new SelectList(_context.Role.ToList(), "RoleId", "RoleName");
-            return View(new RegisterViewModel());
+            ViewBag.Roles = new SelectList(
+                _context.Role
+                    .Where(r => r.RoleName != "Admin"), // ✅ exclude admin
+                "RoleId",
+                "RoleName"
+            );
+
+            return View();
         }
+
 
         // ===== REGISTER ======
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel vm)
+        public async Task<IActionResult> Register(RegisterViewModel vm)
         {
-            if (!ModelState.IsValid) 
+            ViewBag.Roles = new SelectList(
+                _context.Role.Where(r => r.RoleName != "Admin"),
+                "RoleId",
+                "RoleName"
+            );
+
+            if (vm.User.RoleId != null)
+            {
+                var role = await _context.Role.FindAsync(vm.User.RoleId);
+
+                if (role?.RoleName == "Student" && vm.Student?.Age == null)
+                {
+                    ModelState.AddModelError("Student.Age", "Age is required");
+                }
+
+                if (role?.RoleName == "Tutor" && vm.Tutor?.Age == null)
+                {
+                    ModelState.AddModelError("Tutor.Age", "Age is required");
+                }
+            }
+
+            if (!ModelState.IsValid)
                 return View(vm);
 
-            // Check if email already exists
+
             if (_context.User.Any(u => u.Email == vm.User.Email))
             {
-                ViewBag.Error = "An account with this email already exists.";
+                ModelState.AddModelError("", "Email already exists");
                 return View(vm);
             }
 
-            // Create a new user record
             var newUser = new User
             {
                 FirstName = vm.User.FirstName,
                 Surname = vm.User.Surname,
                 Email = vm.User.Email,
                 PhoneNumber = vm.User.PhoneNumber,
-                RoleId = vm.User.RoleId,
+                RoleId = vm.User.RoleId
             };
 
-            // Hash the password
-            newUser.Password = _passwordHasher.HashPassword(newUser, vm.User.Password ?? string.Empty);
+            newUser.Password = _passwordHasher.HashPassword(newUser, vm.User.Password!);
 
             _context.User.Add(newUser);
             await _context.SaveChangesAsync();
 
-            // reload saved user including role
-            var savedUser = await _context.User.Include(u => u.Role)
-                                               .FirstOrDefaultAsync(u => u.UserId == newUser.UserId);
+            var roleName = (await _context.Role.FindAsync(newUser.RoleId))?.RoleName;
 
-            // link extra info based on role
-            var roleName = savedUser?.Role?.RoleName;
-
-            if (roleName == "Student")
+            if (roleName == "Student" && vm.Student != null)
             {
-                vm.Student.UserId = savedUser.UserId;
+                vm.Student.UserId = newUser.UserId;
                 _context.Student.Add(vm.Student);
-                await _context.SaveChangesAsync();
             }
-            else if (roleName == "Tutor")
+            else if (roleName == "Tutor" && vm.Tutor != null)
             {
-                vm.Tutor.UserId = savedUser.UserId;
+                vm.Tutor.UserId = newUser.UserId;
                 _context.Tutor.Add(vm.Tutor);
-                await _context.SaveChangesAsync();
             }
 
-            HttpContext.Session.SetInt32("UserId", savedUser.UserId);
-            HttpContext.Session.SetString("Role", roleName ?? string.Empty);
+            await _context.SaveChangesAsync();
 
-            // Redirect based on role
+            HttpContext.Session.SetInt32("UserId", newUser.UserId);
+            HttpContext.Session.SetString("Role", roleName ?? "");
+
             return roleName switch
             {
                 "Student" => RedirectToAction("Student", "Dashboard"),
-                "Tutor" => RedirectToAction("Tutor+", "Dashboard"),
+                "Tutor" => RedirectToAction("Tutor", "Dashboard"),
                 _ => RedirectToAction("Index", "Home")
             };
         }
